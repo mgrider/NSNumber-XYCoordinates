@@ -19,6 +19,7 @@
 		85AE10BC188AFBD300E66D58 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 85AE10A4188AFBD200E66D58 /* UIKit.framework */; };
 		85AE10C4188AFBD300E66D58 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 85AE10C2188AFBD300E66D58 /* InfoPlist.strings */; };
 		85AE10C6188AFBD300E66D58 /* NSNumberPointTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 85AE10C5188AFBD300E66D58 /* NSNumberPointTests.m */; };
+		85AE10D1188AFD4A00E66D58 /* NSNumber+XYCoordinates.m in Sources */ = {isa = PBXBuildFile; fileRef = 85AE10D0188AFD4A00E66D58 /* NSNumber+XYCoordinates.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +49,8 @@
 		85AE10C1188AFBD300E66D58 /* NSNumberPointTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "NSNumberPointTests-Info.plist"; sourceTree = "<group>"; };
 		85AE10C3188AFBD300E66D58 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		85AE10C5188AFBD300E66D58 /* NSNumberPointTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NSNumberPointTests.m; sourceTree = "<group>"; };
+		85AE10CF188AFD4A00E66D58 /* NSNumber+XYCoordinates.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNumber+XYCoordinates.h"; sourceTree = "<group>"; };
+		85AE10D0188AFD4A00E66D58 /* NSNumber+XYCoordinates.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSNumber+XYCoordinates.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +112,8 @@
 			children = (
 				85AE10AF188AFBD200E66D58 /* NSNP_AppDelegate.h */,
 				85AE10B0188AFBD200E66D58 /* NSNP_AppDelegate.m */,
+				85AE10CF188AFD4A00E66D58 /* NSNumber+XYCoordinates.h */,
+				85AE10D0188AFD4A00E66D58 /* NSNumber+XYCoordinates.m */,
 				85AE10B2188AFBD200E66D58 /* Images.xcassets */,
 				85AE10A7188AFBD200E66D58 /* Supporting Files */,
 			);
@@ -241,6 +246,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				85AE10AD188AFBD200E66D58 /* main.m in Sources */,
+				85AE10D1188AFD4A00E66D58 /* NSNumber+XYCoordinates.m in Sources */,
 				85AE10B1188AFBD200E66D58 /* NSNP_AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
