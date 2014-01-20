@@ -76,10 +76,19 @@
 
 - (void)testNegativeNumbers
 {
-	NSNumber *number = [NSNumber numberWithX:-10 andY:-540];
-	XCTAssertTrue([number xValue] == -1, @"negative error failed.");
-	XCTAssertTrue([number yValue] == -1, @"negative error failed.");
-	XCTAssertTrue([number intValue] == -1, @"negative error failed.");
+//	NSNumber *number = [NSNumber numberWithX:-10 andY:-540];
+//	XCTAssertTrue([number xValue] == -1, @"negative error failed.");
+//	XCTAssertTrue([number yValue] == -1, @"negative error failed.");
+//	XCTAssertTrue([number intValue] == -1, @"negative error failed.");
+	NSNumber *number = [NSNumber numberWithX:10 andY:-540];
+	XCTAssertTrue([number xValue] == 10, @"negative error failed.");
+	XCTAssertTrue([number yValue] == -540, @"negative error failed.");
+	number = [NSNumber numberWithX:-10 andY:-540];
+	XCTAssertTrue([number xValue] == -10, @"negative error failed.");
+	XCTAssertTrue([number yValue] == -540, @"negative error failed.");
+	number = [NSNumber numberWithX:-10 andY:540];
+	XCTAssertTrue([number xValue] == -10, @"negative error failed.");
+	XCTAssertTrue([number yValue] == 540, @"negative error failed.");
 }
 
 - (void)testUpperBounds
@@ -91,6 +100,14 @@
 	number = [NSNumber numberWithX:32768 andY:32768];
 	XCTAssertTrue([number xValue] == -1, @"upper bounds checking for x failed.");
 	XCTAssertTrue([number yValue] == -1, @"upper bounds checking for y failed.");
+
+	number = [NSNumber numberWithX:-32768 andY:-32768];
+	XCTAssertTrue([number xValue] == -1, @"upper bounds checking for -x failed.");
+	XCTAssertTrue([number yValue] == -1, @"upper bounds checking for -y failed.");
+
+	number = [NSNumber numberWithX:-32767 andY:-32767];
+	XCTAssertTrue([number xValue] == -32767, @"upper bounds checking for -x failed.");
+	XCTAssertTrue([number yValue] == -32767, @"upper bounds checking for -y failed.");
 }
 
 

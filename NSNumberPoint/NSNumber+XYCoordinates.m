@@ -10,7 +10,7 @@
 
 
 #define NSNXY_SHIFT_VALUE 16
-#define NSNXY_OFFSET 65535
+#define NSNXY_MASK 0xffff
 
 /*
  2^1 = 2
@@ -38,34 +38,40 @@
 
 + (NSNumber*)numberWithX:(int)x andY:(int)y
 {
-	// this doesn't work for negative numbers
-	if (x <= -1 || y <= -1) {
-		return @(-1);
-	}
+//	// this doesn't work for negative numbers
+//	if (x <= -1 || y <= -1) {
+//		return @(-1);
+//	}
 	// or number above 32767
-	if (x > NSNXY_UPPER_BOUNDS || y > NSNXY_UPPER_BOUNDS) {
+	if (x > NSNXY_UPPER_BOUNDS || y > NSNXY_UPPER_BOUNDS ||
+		x < -NSNXY_UPPER_BOUNDS || y < -NSNXY_UPPER_BOUNDS) {
 		return @(-1);
 	}
 	// finally the actual constructor
-	int i = x;
-	i += (y << NSNXY_SHIFT_VALUE);
+	unsigned int i = (unsigned int)(x & NSNXY_MASK) | (unsigned int)(y << NSNXY_SHIFT_VALUE);
+//	i += ;
 	return @(i);
 }
 
 - (int)xValue
 {
-	if ([self intValue] <= -1) {
-		return -1;
-	}
-	return [self intValue] & NSNXY_OFFSET;
+//	if ([self intValue] <= -1) {
+//		return -1;
+//	}
+	int16_t xval = [self intValue] & NSNXY_MASK;
+	int i = (int)xval;
+	return i;
 }
 
 - (int)yValue
 {
-	if ([self intValue] <= -1) {
-		return -1;
-	}
-	return ([self intValue] >> NSNXY_SHIFT_VALUE);
+//	if ([self intValue] <= -1) {
+//		return -1;
+//	}
+	int16_t yVal = [self intValue] >> NSNXY_SHIFT_VALUE;
+	int i = (int)yVal;
+	return i;
+//	return ([self intValue] >> NSNXY_SHIFT_VALUE);
 }
 
 - (NSNumber*)xAndY:(int)y
