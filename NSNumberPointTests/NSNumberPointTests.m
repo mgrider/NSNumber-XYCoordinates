@@ -10,6 +10,10 @@
 #import "NSNumber+XYCoordinates.h"
 
 
+#define ITTERATION_TESTS_X 10
+#define ITTERATION_TESTS_Y 10
+
+
 @interface NSNumberPointTests : XCTestCase
 
 @end
@@ -108,6 +112,95 @@
 	number = [NSNumber numberWithX:-32767 andY:-32767];
 	XCTAssertTrue([number xValue] == -32767, @"upper bounds checking for -x failed.");
 	XCTAssertTrue([number yValue] == -32767, @"upper bounds checking for -y failed.");
+}
+
+- (void)testOneMillion
+{
+	NSNumber *number;
+	NSMutableArray *yArray = [NSMutableArray arrayWithCapacity:ITTERATION_TESTS_Y];
+	NSMutableArray *xArray = [NSMutableArray arrayWithCapacity:ITTERATION_TESTS_X];
+	for (int x = 0; x < ITTERATION_TESTS_X; x++) {
+		for (int y = 0; y < ITTERATION_TESTS_Y; y++) {
+			number = [NSNumber numberWithX:x andY:y];
+			[xArray addObject:number];
+		}
+		[yArray addObject:xArray];
+		xArray = [NSMutableArray arrayWithCapacity:ITTERATION_TESTS_X];
+	}
+	int x,y;
+	for (NSArray *subArray in yArray) {
+		for (NSNumber *xyNum in subArray) {
+			x = [xyNum xValue];
+			y = [xyNum yValue];
+		}
+	}
+	NSData *data = [NSKeyedArchiver archivedDataWithRootObject:yArray];
+	NSLog(@"NSNumber+XYCoordinates - size of %i objects in multi-dimensional array is %lu",(ITTERATION_TESTS_X * ITTERATION_TESTS_Y), (unsigned long)[data length]);
+}
+
+- (void)testCGPointStringComparison
+{
+	CGPoint point;
+	NSString *pointString;
+	NSMutableArray *yArray = [NSMutableArray arrayWithCapacity:ITTERATION_TESTS_X];
+	NSMutableArray *xArray = [NSMutableArray arrayWithCapacity:ITTERATION_TESTS_Y];
+	for (int x = 0; x < ITTERATION_TESTS_X; x++) {
+		for (int y = 0; y < ITTERATION_TESTS_Y; y++) {
+			point = CGPointMake(x, y);
+			pointString = NSStringFromCGPoint(point);
+			[xArray addObject:pointString];
+		}
+		[yArray addObject:xArray];
+		xArray = [NSMutableArray arrayWithCapacity:ITTERATION_TESTS_X];
+	}
+	int x,y;
+	for (NSArray *subArray in yArray) {
+		for (NSString *xyString in subArray) {
+			point = CGPointFromString(xyString);
+			x = point.x;
+			y = point.y;
+		}
+	}
+	NSData *data = [NSKeyedArchiver archivedDataWithRootObject:yArray];
+	NSLog(@"CGPointToNSString - size of %i string objects in multidimensional array is %lu", (ITTERATION_TESTS_X * ITTERATION_TESTS_Y), (unsigned long)[data length]);
+}
+
+- (void)testDictionaryComparison
+{
+	NSNumber *number;
+	NSMutableDictionary *xyDict = [NSMutableDictionary dictionaryWithCapacity:(ITTERATION_TESTS_X * ITTERATION_TESTS_Y)];
+	for (int x = 0; x < ITTERATION_TESTS_X; x++) {
+		for (int y = 0; y < ITTERATION_TESTS_Y; y++) {
+			number = [NSNumber numberWithX:x andY:y];
+			[xyDict setObject:number forKey:number];
+		}
+	}
+	int x,y;
+	for (NSNumber *key in xyDict) {
+		x = [key xValue];
+		y = [key yValue];
+	}
+	NSData *data = [NSKeyedArchiver archivedDataWithRootObject:xyDict];
+	NSLog(@"NSDictionary - size of %i objects in NSDictionary is %lu",(ITTERATION_TESTS_X * ITTERATION_TESTS_Y), (unsigned long)[data length]);
+}
+
+- (void)testNSSetComparison
+{
+	NSNumber *number;
+	NSMutableSet *xySet = [NSMutableSet setWithCapacity:(ITTERATION_TESTS_X * ITTERATION_TESTS_Y)];
+	for (int x = 0; x < ITTERATION_TESTS_X; x++) {
+		for (int y = 0; y < ITTERATION_TESTS_Y; y++) {
+			number = [NSNumber numberWithX:x andY:y];
+			[xySet addObject:number];
+		}
+	}
+	int x,y;
+	for (NSNumber *setValue in xySet) {
+		x = [setValue xValue];
+		y = [setValue yValue];
+	}
+	NSData *data = [NSKeyedArchiver archivedDataWithRootObject:xySet];
+	NSLog(@"NSSet - size of %i objects in set is %lu",(ITTERATION_TESTS_X * ITTERATION_TESTS_Y), (unsigned long)[data length]);
 }
 
 
